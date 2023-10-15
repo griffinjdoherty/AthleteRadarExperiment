@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+
+<launch>
+    <param name="acc_noise"       type="double" value="1e-2" />
+    <param name="gyr_noise"       type="double" value="1e-4" />
+    <param name="acc_bias_noise"  type="double" value="1e-6" />
+    <param name="gyr_bias_noise"  type="double" value="1e-8" />
+
+
+
+     <include file="$(find ubloxf9p_gps)/launch/ublox_zed-f9p.launch">
+     </include>
+    
+    <node name="imu_gnss_fusion_node" pkg="imu_x_fusion" type="imu_gnss_ekf_node" output="screen" />  
+
+    <node name="gps_socket_node" pkg="imu_x_fusion" type="gps_socket.py" output="screen" />  
+  
+    <arg name="serial_port" default="/dev/ttyUSB0" />
+    <arg name="frame_id" default="imu_link" />
+    <arg name="operation_mode" default="IMU"/>
+    <arg name="oscillator" default="INTERNAL" />
+    <arg name="reset_orientation" default="true" />
+    <arg name="frequency" default="50" /> 
+    <arg name="use_magnetometer" default="false" />
+    <arg name="use_temperature" default="false" /> 
+
+
+    <node pkg="ros_imu_bno055" type="imu_ros.py" name="ros_imu_bno055_node" output="screen">
+        <param name="serial_port" value="$(arg serial_port)" />
+        <param name="frame_id" value="$(arg frame_id)" />
+        <param name="operation_mode" value="$(arg operation_mode)" />
+        <param name="oscillator" value="$(arg oscillator)" />
+        <param name="reset_orientation" value = "$(arg reset_orientation)" />
+        <param name="frequency" value="$(arg frequency)" />
+        <param name="use_magnetometer" value="$(arg use_magnetometer)" />    
+        <param name="use_temperature" value="$(arg use_temperature)" />    
+    </node>
+
+
+    <node pkg="rviz" type="rviz" name="rviz" output="screen" 
+      args="-d $(find imu_x_fusion)/rviz/imu_gnss_fusion.rviz" required="true">
+    </node>
+</launch>

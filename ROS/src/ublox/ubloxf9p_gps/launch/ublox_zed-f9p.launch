@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>  
+  <arg name="node_name" default="ublox"/>
+  <arg name="param_file_name" default="zed-f9p"/>
+  <arg name="output" default="screen"/>
+  <arg name="respawn" default="true"/>
+  <arg name="respawn_delay" default="30"/>
+  <arg name="clear_params" default="false"/>
+  <arg name="navpvt" default="/ublox/navpvt"/>
+  <arg name="navsatfix" default="/ublox/fix"/>
+  <arg name="gps_fix" default="/ublox/gpsFix"/>
+
+ <include file="$(find ubloxf9p_gps)/launch/ublox_device.launch">
+  <arg name="node_name" value="$(arg node_name)"/>
+  <arg name="param_file_name" value="$(arg param_file_name)"/>
+  <arg name="output" value="$(arg output)"/>
+  <arg name="respawn" value="$(arg respawn)"/>
+  <arg name="respawn_delay" value="$(arg respawn_delay)"/>
+  <arg name="clear_params" value="$(arg clear_params)"/>
+ </include>
+
+  <node name="ublox_gpscommon_fix" pkg="ubloxf9p_gps" type="ublox_gps_common_generator.py" output="screen">
+	    <remap from="navpvt"    to="$(arg navpvt)" />
+	    <remap from="navsatfix" to="$(arg navsatfix)" />
+	    <remap from="gps_fix"   to="$(arg gps_fix)" />
+  </node>
+
+</launch>
+

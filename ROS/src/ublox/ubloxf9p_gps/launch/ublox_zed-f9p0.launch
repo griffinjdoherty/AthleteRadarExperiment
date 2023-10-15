@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+ <include file="$(find ublox_gps)/launch/ublox_device.launch">
+  <arg name="node_name" value="gps0"/>
+  <arg name="param_file_name" value="zed-f9p0"/>
+  <arg name="output" value="screen"/>
+  <arg name="respawn" value="true"/>
+  <arg name="respawn_delay" value="30"/>
+  <arg name="clear_params" value="false"/>
+ </include>
+
+  <node name="gps_gate" pkg="gps_track_publisher" type="gps_gate.py" output="screen">
+	    <remap from="navpvt" to="/lead_ublox/navpvt" />
+	    <remap from="navsatfix" to="/lead_ublox/fix" />
+  </node>
+
+</launch>
+

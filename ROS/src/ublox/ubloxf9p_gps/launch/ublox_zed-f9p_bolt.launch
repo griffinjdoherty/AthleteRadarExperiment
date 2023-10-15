@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+ <include file="$(find ubloxf9p_gps)/launch/ublox_device.launch">
+  <arg name="node_name" value="ublox"/>
+  <arg name="param_file_name" value="zed-f9p_bolt"/>
+  <arg name="output" value="screen"/>
+  <arg name="respawn" value="true"/>
+  <arg name="respawn_delay" value="30"/>
+  <arg name="clear_params" value="false"/>
+ </include>
+
+  <node name="ublox_gpscommon_fix" pkg="ubloxf9p_gps" type="ublox_gps_common_generator.py" output="screen">
+	    <remap from="navpvt"    to="/ublox/navpvt" />
+	    <remap from="navsatfix" to="/ublox/fix" />
+	    <remap from="gps_fix"   to="/ublox/gpsFix" />
+  </node>
+
+</launch>
+

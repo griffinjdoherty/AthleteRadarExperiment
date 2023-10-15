@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format='2'>
+  <name>ubloxf9p_gps</name>
+  <version>1.0.1</version>
+  <description>
+     Driver for u-blox ZED-F9P GPS devices.
+  </description>
+  <author>Jean Paul Talledo vilela</author>
+  <maintainer email="jptalledo@gmail.com">Jean Paul Talledo Vilela</maintainer>
+  <license>BSD</license>
+  <url>http://ros.org/wiki/ublox</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>ubloxf9p_serialization</depend>
+  <depend>ubloxf9p_msgs</depend>
+  <depend>roscpp</depend>
+  <depend>roscpp_serialization</depend>
+  <depend>diagnostic_updater</depend>
+  <depend>rtcm_msgs</depend>
+</package>
